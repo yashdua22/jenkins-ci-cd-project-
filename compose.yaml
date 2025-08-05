@@ -1,7 +1,7 @@
 services:
   beautydb:
     build: 
-      context: ./Docker-files
+      context: ./docker-files
     container_name: beautydbcontainer 
     ports:
       - "3306:3306"
