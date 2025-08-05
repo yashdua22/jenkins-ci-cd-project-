@@ -1,7 +1,7 @@
 services:
   beautydb:
     build: 
-      context: ./docker-files
+      context: ./docker-files/sql/
     container_name: beautydbcontainer 
     ports:
       - "3306:3306"
@@ -26,7 +26,7 @@ services:
 
   beautyapp:
     build:
-      context: ./docker-files
+      context: ./docker-files/tomcat/
     container_name: beautyappcontainer
     ports:
       - "8080:8080"
@@ -35,7 +35,7 @@ services:
 
   beautyweb:
     build:
-      context: ./docker-files
+      context: ./docker-files/nginx/
     container_name: beautywebcontainer
     ports:
       - "80:80"
