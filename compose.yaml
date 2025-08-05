@@ -1,0 +1,45 @@
+services:
+  beautydb:
+    build: 
+      context: ./Docker-files/sql/
+    container_name: beautydbcontainer 
+    ports:
+      - "3306:3306"
+    volumes:
+      - beautydbdata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=beautydbpass
+
+  beautycache:
+    image: memcached:latest
+    container_name: beautycachecontainer
+    ports:
+      - "11211:11211"
+
+  beautyrmq:
+    image: rabbitmq:latest
+    ports:
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+  beautyapp:
+    build:
+      context: ./docker-files/tomcat/
+    container_name: beautyappcontainer
+    ports:
+      - "8080:8080"
+    volumes:
+      - beautyappdata:/usr/local/tomcat/webapps
+
+  beautyweb:
+    build:
+      context: ./docker-files/nginx/
+    container_name: beautywebcontainer
+    ports:
+      - "80:80"
+
+volumes:
+  beautydbdata: {}
+  beautyappdata: {}
